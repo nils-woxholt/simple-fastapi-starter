@@ -1,0 +1,25 @@
+@host = http://localhost:8000
+
+###
+{{host}}
+
+###
+{{host}}/health/
+
+### should return anomaly = true
+
+POST {{host}}/score/
+Content-Type: application/json
+
+{
+    "temperature": 26
+}
+
+### should return anomaly = false
+
+POST {{host}}/score/
+Content-Type: application/json
+
+{
+    "temperature": 24
+}
