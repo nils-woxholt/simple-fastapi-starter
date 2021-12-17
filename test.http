@@ -23,3 +23,11 @@ Content-Type: application/json
 {
     "temperature": 24
 }
+### should return anomaly = true for lower than 10 
+
+POST {{host}}/score/
+Content-Type: application/json
+
+{
+    "temperature": 10
+}

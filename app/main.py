@@ -1,12 +1,8 @@
-from typing import Optional
-
+# imported
 from fastapi import FastAPI
-from pydantic import BaseModel
-
-# define base model
-class ModelInput(BaseModel):
-    temperature: int
-
+# local
+from interface import ModelInput, ModelOutput 
+from score import run_model
 
 app = FastAPI()
 
@@ -18,11 +14,10 @@ def read_root():
 def health():
     return {"Status": "healthy"}
 
-
-@app.post("/score/")
-def score(input_values: ModelInput):
+@app.post("/score/", response_model=ModelOutput)
+def score_func(input_values: ModelInput):
 
     # your anomaly model here
-    anomaly = input_values.temperature > 25
+    output = run_model(input_values.temperature)
 
-    return {"anomaly": anomaly}
+    return output
